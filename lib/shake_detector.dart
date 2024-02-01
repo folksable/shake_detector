@@ -98,6 +98,7 @@ class ShakeDetector {
 
 class ShakeDetectWrap extends StatefulWidget {
   final Widget child;
+  final bool enabled;
   final PhoneShakeCallback onShake;
   final double shakeThresholdGravity;
 
@@ -117,6 +118,7 @@ class ShakeDetectWrap extends StatefulWidget {
     this.shakeThresholdGravity = 2.7,
     this.shakeSlopTimeMS = 500,
     this.shakeCountResetTime = 3000,
+    this.enabled = true,
     this.minimumShakeCount = 1,
   });
 
@@ -129,23 +131,25 @@ class _ShakeDetectWrapState extends State<ShakeDetectWrap> {
 
   @override
   void initState() {
-    detector = ShakeDetector.autoStart(
-        onShake: widget.onShake,
-        shakeThresholdGravity: widget.shakeThresholdGravity,
-        shakeSlopTimeMS: widget.shakeSlopTimeMS,
-        shakeCountResetTime: widget.shakeCountResetTime,
-        minimumShakeCount: widget.minimumShakeCount);
+    if(widget.enabled) {
+      detector = ShakeDetector.autoStart(
+          onShake: widget.onShake,
+          shakeThresholdGravity: widget.shakeThresholdGravity,
+          shakeSlopTimeMS: widget.shakeSlopTimeMS,
+          shakeCountResetTime: widget.shakeCountResetTime,
+          minimumShakeCount: widget.minimumShakeCount);
+    }
     super.initState();
   }
 
   @override
   void dispose() {
-    detector.stopListening();
+    if(widget.enabled) {
+      detector.stopListening();
+    }
     super.dispose();
   }
 
   @override
-  Widget build(BuildContext context) {
-    return widget.child;
-  }
+  Widget build(BuildContext context) => widget.child;
 }
