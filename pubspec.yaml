@@ -1,7 +1,10 @@
 name: shake_detector
 description: "a package to detect shake gesture in flutter"
 version: 0.0.1
-homepage: 
+homepage: https://github.com/folksable/shake_gesture
+issue_tracker: https://github.com/folksable/shake_gesture/issues
+funding: 
+  - https://github.com/sponsors/folksable
 
 environment:
   sdk: ">=3.0.0"
@@ -53,3 +56,8 @@ flutter:
   #
   # For details regarding fonts in packages, see
   # https://flutter.dev/custom-fonts/#from-packages
+
+topics:
+  - sensors
+  - shake
+  - gestures
