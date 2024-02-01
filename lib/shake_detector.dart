@@ -131,7 +131,7 @@ class _ShakeDetectWrapState extends State<ShakeDetectWrap> {
 
   @override
   void initState() {
-    if(widget.enabled) {
+    if (widget.enabled) {
       detector = ShakeDetector.autoStart(
           onShake: widget.onShake,
           shakeThresholdGravity: widget.shakeThresholdGravity,
@@ -144,7 +144,7 @@ class _ShakeDetectWrapState extends State<ShakeDetectWrap> {
 
   @override
   void dispose() {
-    if(widget.enabled) {
+    if (widget.enabled) {
       detector.stopListening();
     }
     super.dispose();

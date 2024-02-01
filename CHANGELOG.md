@@ -1,3 +1,6 @@
+## 0.0.4
+* format the code
+
 ## 0.0.3
 * added `enabled` parameter to enable/disable shake detection
 
