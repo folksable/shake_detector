@@ -1,6 +1,6 @@
 name: shake_detector
 description: "a configurable package to detect shake gestures, using the sensors_plus package."
-version: 0.0.1
+version: 0.0.2
 homepage: https://github.com/folksable/shake_detector
 issue_tracker: https://github.com/folksable/shake_detector/issues
 funding: 
