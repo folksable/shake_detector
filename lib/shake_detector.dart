@@ -90,6 +90,18 @@ class ShakeDetector {
     );
   }
 
+  void pauseListening() {
+    streamSubscription?.pause();
+  }
+
+  bool get isPaused {
+    return streamSubscription?.isPaused ?? false;
+  }
+
+  void resumeListening() {
+    streamSubscription?.resume();
+  }
+
   /// Stops listening to accelerometer events
   void stopListening() {
     streamSubscription?.cancel();
@@ -128,7 +140,7 @@ class ShakeDetectWrap extends StatefulWidget {
 
 class _ShakeDetectWrapState extends State<ShakeDetectWrap> {
   late final ShakeDetector detector;
-
+  late final AppLifecycleListener _listener;
   @override
   void initState() {
     if (widget.enabled) {
@@ -138,14 +150,29 @@ class _ShakeDetectWrapState extends State<ShakeDetectWrap> {
           shakeSlopTimeMS: widget.shakeSlopTimeMS,
           shakeCountResetTime: widget.shakeCountResetTime,
           minimumShakeCount: widget.minimumShakeCount);
+      _listener = AppLifecycleListener(
+        onStateChange: _onStateChanged,
+      );
     }
     super.initState();
+  }
+
+  void _onStateChanged(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed &&
+        widget.enabled &&
+        detector.isPaused) {
+      detector.resumeListening();
+    }
+    if (state == AppLifecycleState.paused && widget.enabled) {
+      detector.pauseListening();
+    }
   }
 
   @override
   void dispose() {
     if (widget.enabled) {
       detector.stopListening();
+      _listener.dispose();
     }
     super.dispose();
   }

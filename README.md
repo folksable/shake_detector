@@ -16,6 +16,7 @@ class HomePage extends StatelessWidget {
       body: Center(
         // The start.
         child: ShakeDetectWrap(
+          enabled: true,
           onShake: () {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(content: Text('Shake!')),
