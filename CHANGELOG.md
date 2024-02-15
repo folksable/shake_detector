@@ -1,3 +1,8 @@
+## 0.1.0
+* added pause listening when the app is in background
+* added resume listening when the app is in foreground
+* now the package doesn't give phantoms shakes when the app is in background
+
 ## 0.0.4
 * format the code
 
