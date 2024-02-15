@@ -61,7 +61,8 @@ class ShakeDetector {
       (AccelerometerEvent event) {
         if (_isPaused) return;
 
-        if (lastResumedTimeStamp + 500 > DateTime.now().millisecondsSinceEpoch) {
+        if (lastResumedTimeStamp + 500 >
+            DateTime.now().millisecondsSinceEpoch) {
           return;
         }
 

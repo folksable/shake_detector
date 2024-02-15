@@ -1,3 +1,6 @@
+## 0.1.1
+* dart format the files
+
 ## 0.1.0
 * added pause listening when the app is in background
 * added resume listening when the app is in foreground
