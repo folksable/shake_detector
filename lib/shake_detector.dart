@@ -98,6 +98,8 @@ class ShakeDetector {
     return streamSubscription?.isPaused ?? false;
   }
 
+  bool get isListening => !isPaused;
+
   void resumeListening() {
     streamSubscription?.resume();
   }
@@ -163,7 +165,9 @@ class _ShakeDetectWrapState extends State<ShakeDetectWrap> {
         detector.isPaused) {
       detector.resumeListening();
     }
-    if (state == AppLifecycleState.paused && widget.enabled) {
+    if (state == AppLifecycleState.paused &&
+        widget.enabled &&
+        detector.isListening) {
       detector.pauseListening();
     }
   }
