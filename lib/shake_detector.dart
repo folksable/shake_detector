@@ -11,6 +11,9 @@ typedef PhoneShakeCallback = void Function();
 
 /// ShakeDetector class for phone shake functionality
 class ShakeDetector {
+  bool _isPaused = false;
+  int lastResumedTimeStamp = 0;
+
   /// User callback for phone shake
   final PhoneShakeCallback onShake;
 
@@ -20,7 +23,7 @@ class ShakeDetector {
   /// Minimum time between shake
   final int shakeSlopTimeMS;
 
-  /// Time before shake count resets
+  /// Time before shake count resets in milliseconds
   final int shakeCountResetTime;
 
   /// Number of shakes required before shake is triggered
@@ -56,6 +59,12 @@ class ShakeDetector {
   void startListening() {
     streamSubscription = accelerometerEventStream().listen(
       (AccelerometerEvent event) {
+        if (_isPaused) return;
+
+        if (lastResumedTimeStamp + 500 > DateTime.now().millisecondsSinceEpoch) {
+          return;
+        }
+
         double x = event.x;
         double y = event.y;
         double z = event.z;
@@ -91,21 +100,27 @@ class ShakeDetector {
   }
 
   void pauseListening() {
+    _isPaused = true;
+    mShakeCount = 0;
     streamSubscription?.pause();
   }
 
   bool get isPaused {
-    return streamSubscription?.isPaused ?? false;
+    return _isPaused;
   }
 
-  bool get isListening => !isPaused;
+  bool get isListening => !_isPaused;
 
   void resumeListening() {
+    _isPaused = false;
+    mShakeCount = 0;
+    lastResumedTimeStamp = DateTime.now().millisecondsSinceEpoch;
     streamSubscription?.resume();
   }
 
   /// Stops listening to accelerometer events
   void stopListening() {
+    _isPaused = true;
     streamSubscription?.cancel();
   }
 }
@@ -163,11 +178,13 @@ class _ShakeDetectWrapState extends State<ShakeDetectWrap> {
     if (state == AppLifecycleState.resumed &&
         widget.enabled &&
         detector.isPaused) {
+      print('app resumed');
       detector.resumeListening();
     }
     if (state == AppLifecycleState.paused &&
         widget.enabled &&
         detector.isListening) {
+      print('app paused');
       detector.pauseListening();
     }
   }
