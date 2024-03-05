@@ -1,6 +1,6 @@
 # shake_detector
 
-A flutter package to detect phone shakes, upgraded version on shake.
+A flutter package to detect phone shakes, upgraded version on shake, pause and resume listening when the app is in background and foreground respectively.
 
 ## Usage
 
