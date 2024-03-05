@@ -43,7 +43,7 @@ To listen to phone shake:
 
 ```dart
 ShakeDetector detector = ShakeDetector.autoStart(
-    onPhoneShake: () {
+    onShake: () {
         // Do stuff on phone shake
     }
 );
@@ -54,7 +54,7 @@ OR
 This will wait for user to call `startListening()` to start listening to phone shake:
 ```dart
 ShakeDetector detector = ShakeDetector.waitForStart(
-    onPhoneShake: () {
+    onShake: () {
         // Do stuff on phone shake
     }
 );

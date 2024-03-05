@@ -1,3 +1,6 @@
+## 0.1.2
+* update docs & fix [#2](https://github.com/folksable/shake_detector/issues/2)
+
 ## 0.1.1
 * dart format the files
 

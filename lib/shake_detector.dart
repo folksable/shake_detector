@@ -179,13 +179,13 @@ class _ShakeDetectWrapState extends State<ShakeDetectWrap> {
     if (state == AppLifecycleState.resumed &&
         widget.enabled &&
         detector.isPaused) {
-      print('app resumed');
+      debugPrint('app resumed');
       detector.resumeListening();
     }
     if (state == AppLifecycleState.paused &&
         widget.enabled &&
         detector.isListening) {
-      print('app paused');
+      debugPrint('app paused');
       detector.pauseListening();
     }
   }
