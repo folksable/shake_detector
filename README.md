@@ -59,13 +59,25 @@ ShakeDetector detector = ShakeDetector.waitForStart(
     }
 );
 
+// start listening later on, after using waitForStart constructor
 detector.startListening();
-
 ```
 
-To stop listening:
+Control Detector:
 ```dart
+// usually you don't start listening but used in constructor
+detector.startListening();
+
+// pause shake listening for a while (e.g. when app is in background)
+detector.pauseListening();
+
+// resume shake listening after pause
+detector.resumeListening();
+
+// stop shake detection
+// this will cancel the stream subscription 
 detector.stopListening();
+
 ```
 
 
